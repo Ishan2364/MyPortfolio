@@ -158,7 +158,7 @@ const Portfolio = () => {
             <div style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p>Hello! I am <strong>Ishan Srivastava</strong>, a pre-final year undergraduate pursuing a B.Tech in <strong>Data Science and Artificial Intelligence</strong> at <span style={{ color: 'var(--accent)' }}>IIIT Dharwad</span>.</p>
               <p>Technically, I specialize in <strong>Agentic AI</strong> and <strong>Frontend Development</strong>. I don't just train models; I build complete ecosystems around them. Whether it's architecting multi-agent retail systems like <em>Nexora</em> or fine-tuning LLMs for medical diagnostics in <em>ArogyAI</em>, I love the challenge of making AI "act" rather than just "speak."</p>
-              <p>Beyond code, I am a firm believer in community and storytelling. As the <strong>Vice President</strong> of the Microsoft Student Ambassador Club, I actively mentor peers and organize tech events.</p>
+              <p>Beyond code, I am a firm believer in community and storytelling. As the Vice President of the Microsoft Student Ambassador Club and the AI/ML Team Lead at the Open Source Code Club, I actively mentor peers and organize tech events. I also explore my creative side as a member of Inmotion (Filmography) and Iridescence (Photography), where I learn that the best engineering, like art, requires a unique perspective.</p>
             </div>
           </div>
         </div>
