@@ -2,16 +2,27 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Calendar } from 'lucide-react';
 
+// --- STYLE HELPERS ---
+const getGlassClass = (isDark) => 
+  isDark 
+    ? "bg-slate-900/60 border-white/10 text-slate-300" // Dark Mode Glass
+    : "bg-white/60 border-slate-200 text-slate-700 shadow-lg shadow-blue-500/5"; // Light Mode Glass
+
+const getBadgeClass = (isDark) =>
+  isDark
+    ? "bg-white/5 text-slate-300 border-white/5"
+    : "bg-blue-100/50 text-blue-700 border-blue-200";
+
 // --- SKILL CARD ---
-export const SkillCard = ({ icon, title, skills }) => (
-  <div className="bg-slate-900/40 p-6 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:bg-slate-900/60 backdrop-blur-sm">
-    <div className="text-blue-400 mb-4 bg-blue-500/10 w-12 h-12 flex items-center justify-center rounded-xl">
+export const SkillCard = ({ icon, title, skills, isDark }) => (
+  <div className={`p-6 rounded-2xl border backdrop-blur-md transition-all duration-300 ${getGlassClass(isDark)}`}>
+    <div className={`mb-4 w-12 h-12 flex items-center justify-center rounded-xl ${isDark ? "bg-blue-500/10 text-blue-400" : "bg-blue-100 text-blue-600"}`}>
       {icon}
     </div>
-    <h3 className="text-lg font-bold text-white mb-4">{title}</h3>
+    <h3 className={`text-lg font-bold mb-4 ${isDark ? "text-white" : "text-slate-900"}`}>{title}</h3>
     <div className="flex flex-wrap gap-2">
       {skills.map((skill, index) => (
-        <span key={index} className="text-xs font-medium text-slate-400 bg-white/5 px-3 py-1.5 rounded-full">
+        <span key={index} className={`text-xs font-medium px-3 py-1.5 rounded-full border ${getBadgeClass(isDark)}`}>
           {skill}
         </span>
       ))}
@@ -20,65 +31,53 @@ export const SkillCard = ({ icon, title, skills }) => (
 );
 
 // --- PROJECT CARD ---
-export const ProjectCard = ({ title, description, tags, color, link }) => {
-  const colorVariants = {
-    blue: 'hover:border-blue-500/50',
-    emerald: 'hover:border-emerald-500/50',
-    violet: 'hover:border-violet-500/50',
-    amber: 'hover:border-amber-500/50',
-  };
-
-  return (
-    <motion.div 
-      whileHover={{ y: -5 }}
-      className={`group p-8 rounded-3xl bg-slate-900/40 border border-white/5 transition-all duration-300 ${colorVariants[color]} relative overflow-hidden backdrop-blur-sm`}
+export const ProjectCard = ({ title, description, tags, link, isDark }) => (
+  <motion.div 
+    whileHover={{ y: -5 }}
+    className={`group p-8 rounded-3xl border transition-all duration-300 relative overflow-hidden backdrop-blur-md ${getGlassClass(isDark)} hover:border-blue-500/50`}
+  >
+    <a 
+      href={link}
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="absolute top-6 right-6 opacity-60 hover:opacity-100 hover:text-blue-500 transition-all cursor-pointer"
     >
-      <a 
-        href={link}
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="absolute top-0 right-0 p-6 opacity-60 hover:opacity-100 hover:text-blue-400 transition-all text-slate-500 z-20 cursor-pointer"
-        title="View Code on GitHub"
-      >
-        <ExternalLink size={24} />
-      </a>
-      
-      <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
-      <p className="text-slate-400 mb-6 leading-relaxed">{description}</p>
-      
-      <div className="flex flex-wrap gap-2 mt-auto">
-        {tags.map((tag, i) => (
-          <span key={i} className="text-xs font-medium text-slate-300 bg-slate-800 px-3 py-1 rounded-full border border-white/5">
-            {tag}
-          </span>
-        ))}
-      </div>
-    </motion.div>
-  );
-};
+      <ExternalLink size={24} />
+    </a>
+    
+    <h3 className={`text-2xl font-bold mb-3 ${isDark ? "text-white" : "text-slate-900"}`}>{title}</h3>
+    <p className={`mb-6 leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"}`}>{description}</p>
+    
+    <div className="flex flex-wrap gap-2 mt-auto">
+      {tags.map((tag, i) => (
+        <span key={i} className={`text-xs font-medium px-3 py-1 rounded-full border ${getBadgeClass(isDark)}`}>
+          {tag}
+        </span>
+      ))}
+    </div>
+  </motion.div>
+);
 
-// --- TIMELINE CARD (NEW!) ---
-// Used for Experience and Education
-export const TimelineCard = ({ title, subtitle, date, description, icon }) => (
+// --- TIMELINE CARD ---
+export const TimelineCard = ({ title, subtitle, date, description, icon, isDark }) => (
   <div className="flex gap-6 relative group">
-    {/* Line connector */}
     <div className="hidden md:flex flex-col items-center">
-      <div className="w-12 h-12 rounded-full bg-slate-900 border border-blue-500/30 flex items-center justify-center text-blue-400 z-10 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
+      <div className={`w-12 h-12 rounded-full border flex items-center justify-center z-10 transition-colors duration-300 ${isDark ? "bg-slate-900 border-blue-500/30 text-blue-400 group-hover:bg-blue-500 group-hover:text-white" : "bg-white border-blue-200 text-blue-600 group-hover:bg-blue-600 group-hover:text-white"}`}>
         {icon}
       </div>
-      <div className="h-full w-px bg-white/10 my-2"></div>
+      <div className={`h-full w-px my-2 ${isDark ? "bg-white/10" : "bg-slate-200"}`}></div>
     </div>
     
-    <div className="bg-slate-900/40 p-6 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all flex-1 mb-8 backdrop-blur-sm">
+    <div className={`p-6 rounded-2xl border transition-all flex-1 mb-8 backdrop-blur-md ${getGlassClass(isDark)}`}>
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-         <h3 className="text-xl font-bold text-white">{title}</h3>
-         <div className="flex items-center gap-2 text-sm text-slate-500 bg-white/5 px-3 py-1 rounded-full w-fit mt-2 md:mt-0">
+         <h3 className={`text-xl font-bold ${isDark ? "text-white" : "text-slate-900"}`}>{title}</h3>
+         <div className={`flex items-center gap-2 text-sm px-3 py-1 rounded-full w-fit mt-2 md:mt-0 ${getBadgeClass(isDark)}`}>
             <Calendar size={14} />
             <span>{date}</span>
          </div>
       </div>
-      <div className="text-blue-400 font-medium mb-4">{subtitle}</div>
-      <p className="text-slate-400 leading-relaxed text-sm">
+      <div className={`font-medium mb-4 ${isDark ? "text-blue-400" : "text-blue-600"}`}>{subtitle}</div>
+      <p className={`leading-relaxed text-sm ${isDark ? "text-slate-400" : "text-slate-600"}`}>
         {description}
       </p>
     </div>
@@ -86,12 +85,12 @@ export const TimelineCard = ({ title, subtitle, date, description, icon }) => (
 );
 
 // --- SOCIAL BUTTON ---
-export const SocialButton = ({ href, icon, label }) => (
+export const SocialButton = ({ href, icon, label, isDark }) => (
   <a 
     href={href}
     target="_blank"             
     rel="noopener noreferrer"   
-    className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 rounded-full text-white font-medium transition-all border border-white/5 hover:border-white/20"
+    className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all border ${isDark ? "bg-white/5 hover:bg-white/10 border-white/5 text-white" : "bg-white hover:bg-slate-50 border-slate-200 text-slate-700 shadow-sm"}`}
   >
     {icon}
     <span>{label}</span>
