@@ -107,6 +107,7 @@ const Portfolio = () => {
       {/* HERO SECTION */}
       <section className="hero-section">
         <div className="container hero-grid">
+          {/* Text Content - Kept the animation here */}
           <motion.div 
             className="hero-content"
             initial={{ opacity: 0, y: 20 }} 
@@ -128,25 +129,39 @@ const Portfolio = () => {
             </div>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }} 
-            animate={{ opacity: 1, scale: 1 }} 
-            transition={{ duration: 1, delay: 0.2 }}
-            style={{ height: '600px', width: '100%', position: 'relative', zIndex: 10 }}
+          {/* 3D Visual Wrapper - Fixed "Growing" Bug */}
+          <div 
+            style={{ 
+              height: '600px', 
+              width: '100%', 
+              position: 'relative', 
+              zIndex: 10,
+              // Flex centering ensures it stays in the middle even on wide screens
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           >
-            <Canvas camera={{ position: [0, 0, 12], fov: 25 }} gl={{ toneMappingExposure: 0.9 }}>
+            <Canvas 
+              camera={{ position: [0, 0, 12], fov: 25 }} 
+              gl={{ toneMappingExposure: 0.9 }}
+              // CRITICAL FIX: prevents resizing/zooming on scroll
+              resize={{ scroll: false, debounce: 0 }} 
+            >
               <Environment preset="city" environmentIntensity={isDark ? 0.3 : 0.8} /> 
               <ambientLight intensity={isDark ? 0.4 : 0.7} />
               <directionalLight position={[5, 10, 5]} intensity={2} />
               <pointLight position={[-5, 5, 5]} intensity={2} color="#a855f7" distance={10} />
+              
               <group position={[0, -0.6, 0]}>
                  <Robot />
               </group>
+              
               <EffectComposer>
                 <Bloom intensity={2.5} luminanceThreshold={1.1} mipmapBlur />
               </EffectComposer>
             </Canvas>
-          </motion.div>
+          </div>
         </div>
       </section>
       
@@ -186,7 +201,8 @@ const Portfolio = () => {
           </div>
           <div className="project-grid">
             <ProjectCard title="Nexora Retail Agent" description="A multi-agent retail concierge orchestrating specialized workers for catalog, inventory, and sales using LangGraph and React." tags={['Agentic AI', 'LangGraph', 'FastAPI']} link="https://github.com/Ishan2364/NEXORA" />
-             <ProjectCard title="StayPredict" description="Employee attrition prediction system using Stacking Ensemble (XGBoost, SVM, Random Forest) with SHAP explainability." tags={['Ensemble ML', 'XGBoost', 'SHAP']} link="https://github.com/Ishan2364" />
+            <ProjectCard title="Dialectica" description="Host a debate between AIs assign them roles, their personality and get info about both side of a topic " tags={['Agentic AI', 'LangGraph', 'GrokAI']} link="https://github.com/Ishan2364/Dialectica-DebateAI-" />
+            <ProjectCard title="StayPredict" description="Employee attrition prediction system using Stacking Ensemble (XGBoost, SVM, Random Forest) with SHAP explainability." tags={['Ensemble ML', 'XGBoost', 'SHAP']} link="https://github.com/Ishan2364/StayPredictML" />
             <ProjectCard title="Inquiro News Bot" description="Real-time news analytics dashboard integrating Reddit & Google News APIs with Hugging Face Transformers for sentiment analysis." tags={['NLP', 'PRAW', 'React.js']} link="https://github.com/Ishan2364/Inquiro-News-Bot" />
             <ProjectCard title="Heart Disease Prediction" description="Medical risk assessment model using Logistic Regression and Random Forest, optimized with Hugging Face Transformers." tags={['Healthcare', 'Scikit-Learn', 'Research']} link="https://github.com/Ishan2364/Heart_Disease_Prediction_Model" />
           </div>
