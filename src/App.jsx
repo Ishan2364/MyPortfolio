@@ -3,12 +3,12 @@ import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Code2, Brain, Database, Globe, GraduationCap, Briefcase, Camera, Terminal, Users, ExternalLink, School, Sun, Moon, Calendar, MapPin, Award } from 'lucide-react';
-
+// Added new icons: Trophy, Zap, Video, Aperture, Target
+import { Github, Linkedin, Mail, Code2, Brain, Database, Globe, GraduationCap, Briefcase, Camera, Terminal, Users, ExternalLink, School, Sun, Moon, Calendar, MapPin, Award, Trophy, Zap, Video, Aperture, Target } from 'lucide-react';
 import Robot from './components/Robot';
 import Background3D from './components/Background3D';
-
-// --- SUB-COMPONENTS USING YOUR CSS CLASSES ---
+import CreativeGallery from './components/CreativeGallery';
+// --- SUB-COMPONENTS ---
 
 const SkillCard = ({ icon, title, skills }) => (
   <div className="skill-card glass-effect">
@@ -53,6 +53,37 @@ const TimelineCard = ({ title, subtitle, date, description, icon }) => (
       <div style={{ color: 'var(--accent)', fontWeight: 600, marginBottom: '12px' }}>{subtitle}</div>
       <p style={{ color: 'var(--text-secondary)' }}>{description}</p>
     </div>
+  </div>
+);
+
+// New Component for Positions of Responsibility
+const LeadershipCard = ({ role, org, icon, color }) => (
+  <div className="glass-effect" style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+    <div style={{ 
+      minWidth: '50px', height: '50px', borderRadius: '12px', 
+      background: `rgba(${color}, 0.1)`, color: `rgb(${color})`,
+      display: 'flex', alignItems: 'center', justifyContent: 'center'
+    }}>
+      {icon}
+    </div>
+    <div>
+      <h3 style={{ margin: 0, fontSize: '1.1rem', color: 'var(--text-primary)' }}>{role}</h3>
+      <p style={{ margin: '4px 0 0', color: 'var(--text-secondary)', fontWeight: 500 }}>{org}</p>
+    </div>
+  </div>
+);
+
+// New Component for Hackathons
+const AchievementCard = ({ title, result, date, icon, statusColor = 'var(--accent)' }) => (
+  <div className="glass-effect" style={{ padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ color: statusColor }}>{icon}</div>
+        <div>
+            <h3 style={{ margin: 0, fontSize: '1.05rem', color: 'var(--text-primary)' }}>{title}</h3>
+            <p style={{ margin: '4px 0 0', color: statusColor, fontSize: '0.9rem', fontWeight: 600 }}>{result}</p>
+        </div>
+    </div>
+    <span className="tag" style={{ background: 'rgba(255,255,255,0.05)', whiteSpace: 'nowrap' }}>{date}</span>
   </div>
 );
 
@@ -107,7 +138,6 @@ const Portfolio = () => {
       {/* HERO SECTION */}
       <section className="hero-section">
         <div className="container hero-grid">
-          {/* Text Content - Kept the animation here */}
           <motion.div 
             className="hero-content"
             initial={{ opacity: 0, y: 20 }} 
@@ -129,14 +159,12 @@ const Portfolio = () => {
             </div>
           </motion.div>
 
-          {/* 3D Visual Wrapper - Fixed "Growing" Bug */}
           <div 
             style={{ 
               height: '600px', 
               width: '100%', 
               position: 'relative', 
               zIndex: 10,
-              // Flex centering ensures it stays in the middle even on wide screens
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
@@ -145,7 +173,6 @@ const Portfolio = () => {
             <Canvas 
               camera={{ position: [0, 0, 12], fov: 25 }} 
               gl={{ toneMappingExposure: 0.9 }}
-              // CRITICAL FIX: prevents resizing/zooming on scroll
               resize={{ scroll: false, debounce: 0 }} 
             >
               <Environment preset="city" environmentIntensity={isDark ? 0.3 : 0.8} /> 
@@ -229,7 +256,79 @@ const Portfolio = () => {
         </div>
       </section>
 
-      
+      {/* --- NEW SECTION: POSITIONS OF RESPONSIBILITY --- */}
+      <section className="section">
+        <div className="container">
+            <h2 className="section-title text-center">Leadership & Community</h2>
+            <div className="project-grid" style={{ marginTop: '40px' }}>
+                <LeadershipCard 
+                    role="Vice President" 
+                    org="Microsoft Student Ambassadors (MSA) - IIIT Dharwad" 
+                    icon={<Users size={28} />} 
+                    color="6, 182, 212" // Cyan
+                />
+                <LeadershipCard 
+                    role="AI/ML Team Lead" 
+                    org="Open Source Code Club - IIIT Dharwad" 
+                    icon={<Terminal size={28} />} 
+                    color="168, 85, 247" // Purple
+                />
+                <LeadershipCard 
+                    role="Member" 
+                    org="Inmotion (Filmography Club)" 
+                    icon={<Video size={28} />} 
+                    color="234, 88, 12" // Orange
+                />
+                <LeadershipCard 
+                    role="Member" 
+                    org="Iridescence (Photography Club)" 
+                    icon={<Aperture size={28} />} 
+                    color="236, 72, 153" // Pink
+                />
+            </div>
+        </div>
+      </section>
+
+
+
+      {/* --- NEW SECTION: HACKATHONS --- */}
+      <section className="section">
+        <div className="container">
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '32px' }}>
+                <h2 className="section-title" style={{ margin: 0 }}>Competitions & Hackathons</h2>
+                <span style={{ color: 'var(--accent)' }}></span>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <AchievementCard 
+                    title="EY Techathon 6.0" 
+                    result="Selected for Round 2 (Ongoing)" 
+                    date="Present" 
+                    icon={<Zap size={24} />}
+                    statusColor="#10b981" // Green for ongoing success
+                />
+                 <AchievementCard 
+                    title="Udbhav Inter-IIIT Hackathon" 
+                    result="Qualified for Round 2" 
+                    date="Nov 2025" 
+                    icon={<Code2 size={24} />}
+                />
+                <AchievementCard 
+                    title="Microsoft Triwizardathon" 
+                    result="Qualified for Round 2" 
+                    date="Aug 2025" 
+                    icon={<Target size={24} />}
+                />
+                <AchievementCard 
+                    title="Google Agentic AI Hackathon" 
+                    result="Selected for In-Person Round (Waitlist)" 
+                    date="July 2025" 
+                    icon={<Trophy size={24} />}
+                />
+            </div>
+        </div>
+      </section>
+
       {/* ALMA MATER */}
       <section className="section">
         <div className="container">
@@ -239,8 +338,6 @@ const Portfolio = () => {
                 
                 {/* IIIT DHARWAD CARD */}
                 <a href="https://iiitdwd.ac.in/" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }} className="project-card glass-effect alma-card">
-                    
-                    {/* Header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                         <div>
                             <div style={{ color: 'var(--accent)', marginBottom: '8px' }}>
@@ -255,8 +352,6 @@ const Portfolio = () => {
                         </div>
                         <ExternalLink size={20} color="var(--text-secondary)" style={{ opacity: 0.6 }} />
                     </div>
-
-                    {/* Metadata Row */}
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
                         <span className="meta-tag">
                             <Calendar size={14} /> 2023 - 2027
@@ -265,8 +360,6 @@ const Portfolio = () => {
                             <MapPin size={14} /> Dharwad, Karnataka
                         </span>
                     </div>
-
-                    {/* Description */}
                     <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', fontSize: '0.95rem' }}>
                         An Institute of National Importance. Specializing in advanced <strong style={{ color: 'var(--text-primary)' }}>Agentic AI</strong> and <strong style={{ color: 'var(--text-primary)' }}>Deep Learning</strong> research. Active contributor to the open-source community and technical societies.
                     </p>
@@ -274,8 +367,6 @@ const Portfolio = () => {
 
                 {/* SUNBEAM SCHOOL CARD */}
                 <a href="https://www.sunbeamschools.com/school/bhagwanpur/" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }} className="project-card glass-effect alma-card">
-                    
-                    {/* Header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
                         <div>
                             <div style={{ color: 'var(--accent)', marginBottom: '8px' }}>
@@ -290,8 +381,6 @@ const Portfolio = () => {
                         </div>
                         <ExternalLink size={20} color="var(--text-secondary)" style={{ opacity: 0.6 }} />
                     </div>
-
-                    {/* Metadata Row */}
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
                         <span className="meta-tag">
                             <Calendar size={14} /> Class of 2022
@@ -300,8 +389,6 @@ const Portfolio = () => {
                             <MapPin size={14} /> Varanasi, Uttar Pradesh
                         </span>
                     </div>
-
-                    {/* Description */}
                     <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', fontSize: '0.95rem' }}>
                         A premier educational institution known for academic excellence. Secured <strong style={{ color: 'var(--text-primary)' }}>88.6%</strong> in finals. Built a strong foundation in Mathematics and Computer Science that drives my engineering career today.
                     </p>
@@ -317,25 +404,17 @@ const Portfolio = () => {
             
             {/* Main Contact Card */}
             <div className="glass-effect" style={{ maxWidth: '900px', margin: '0 auto', padding: '80px 40px', borderRadius: '32px', position: 'relative', overflow: 'hidden' }}>
-                
-                {/* Decorative Background Blur (Optional subtle glow) */}
                 <div style={{ position: 'absolute', top: '-50%', left: '50%', transform: 'translateX(-50%)', width: '400px', height: '400px', background: 'var(--accent)', opacity: '0.15', filter: 'blur(100px)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-
                 <h2 className="font-heading" style={{ fontSize: '3.5rem', marginBottom: '24px', color: 'var(--text-primary)', fontWeight: 800, letterSpacing: '-1px' }}>
                     Let's work together.
                 </h2>
-                
                 <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 48px', lineHeight: '1.6' }}>
                     Creating intelligent agents and scalable systems. Whether you have a project in mind or just want to say hi, feel free to reach out!
                 </p>
-
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', position: 'relative', zIndex: 2 }}>
-                    {/* Primary Button for Email */}
                     <a href="mailto:helloishan23@gmail.com" className="btn primary" style={{ padding: '16px 40px', fontSize: '1.1rem', borderRadius: '50px' }}>
                         <Mail size={22} /> Say Hello
                     </a>
-                    
-                    {/* Outline Buttons for Socials */}
                     <a href="https://github.com/Ishan2364" className="btn outline" style={{ padding: '16px 32px', fontSize: '1.1rem', borderRadius: '50px' }}>
                         <Github size={22} /> GitHub
                     </a>
@@ -345,6 +424,9 @@ const Portfolio = () => {
                 </div>
             </div>
 
+{/* NEW CREATIVE CORNER */}
+      <CreativeGallery />
+      
             {/* Footer Info */}
             <footer style={{ marginTop: '80px', color: 'var(--text-secondary)', fontSize: '0.95rem', opacity: 0.7 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
@@ -353,9 +435,9 @@ const Portfolio = () => {
                     <p style={{ margin: 0 }}>Crafted with React & Three.js</p>
                 </div>
             </footer>
-
         </div>
       </section>
+
 
     </div>
   );
