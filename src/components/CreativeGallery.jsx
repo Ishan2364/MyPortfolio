@@ -10,7 +10,7 @@ import YanaCaves from "../assets/IMG_1498.jpg";
 import Landour from "../assets/IMG_5983.jpg";
 import CaboDeRama from "../assets/IMG_9158.JPG";
 import SunsetCampus from "../assets/IMG_8914.jpg";
-import Waterfall from "../assets/IMG_7030.JPG";
+import Waterfall from "../assets/IMG_7030.jpg";
 
 // --- DATA ---
 const galleryItems = [
