@@ -228,6 +228,7 @@ const Portfolio = () => {
           </div>
           <div className="project-grid">
             <ProjectCard title="Nexora Retail Agent" description="A multi-agent retail concierge orchestrating specialized workers for catalog, inventory, and sales using LangGraph and React." tags={['Agentic AI', 'LangGraph', 'FastAPI']} link="https://github.com/Ishan2364/NEXORA" />
+            <ProjectCard title="PyStack Architect" description="PyStack Architect is an intelligent dependency solver that visualizes deep Python library conflicts and automatically calculates compatible versions to generate a crash-free requirements.txt" tags={['Python', 'Packaging', 'Resolve']} link="https://github.com/Ishan2364/PyStack-Architect" />
             <ProjectCard title="Dialectica" description="Host a debate between AIs assign them roles, their personality and get info about both side of a topic " tags={['Agentic AI', 'LangGraph', 'GrokAI']} link="https://github.com/Ishan2364/Dialectica-DebateAI-" />
             <ProjectCard title="StayPredict" description="Employee attrition prediction system using Stacking Ensemble (XGBoost, SVM, Random Forest) with SHAP explainability." tags={['Ensemble ML', 'XGBoost', 'SHAP']} link="https://github.com/Ishan2364/StayPredictML" />
             <ProjectCard title="Inquiro News Bot" description="Real-time news analytics dashboard integrating Reddit & Google News APIs with Hugging Face Transformers for sentiment analysis." tags={['NLP', 'PRAW', 'React.js']} link="https://github.com/Ishan2364/Inquiro-News-Bot" />
